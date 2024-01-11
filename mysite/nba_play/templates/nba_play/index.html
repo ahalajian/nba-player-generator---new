@@ -1,0 +1,101 @@
+{% extends "nba_play/base.html" %}
+{% block title %}NBA Play{% endblock %}
+
+
+{% block content %}
+  <div class="container">
+    <div class="instruction-box">
+        <h5>Instructions: Please specify the number of players and NBA player type to randomly generate!</h5>
+      </div>
+  </div>
+  <div class="container">
+    <form class="selection-box" method="get" action="/">
+      <div class="selections">
+        {% csrf_token %}
+        <div>
+          {{ form.num_players.label_tag }}
+          {{ form.num_players }}
+        </div>
+        <div>
+          {{ form.player_type.label_tag }}
+          {{ form.player_type }}
+        </div>
+    </div>
+      <div class="generate-container">
+        <input class="button" type="submit" value="Generate!">
+      </div> 
+    </form>
+  </div>
+
+  <div class="container">
+    <div class="players">
+      {% for player in players %}
+      <div class="player">{{ player.first_name }} {{ player.last_name }}
+        <img src="https://cdn.nba.com/headshots/nba/latest/260x190/{{ player.nba_id }}.png" alt="" class="player-image">
+      </div>
+      {% endfor %}
+      <!-- <div class="player">LeBron James <img class="player-image" src="https://cdn.nba.com/headshots/nba/latest/260x190/2544.png" alt=""></div>
+      <div class="player">Luka Doncic <img class="player-image" src="https://cdn.nba.com/headshots/nba/latest/260x190/1629029.png" alt=""></div>
+      <div class="player">Kobe Bryant <img class="player-image" src="https://cdn.nba.com/headshots/nba/latest/260x190/977.png" alt=""></div> -->
+    </div>
+  </div>
+
+<div class="container">
+    <table id="leaderboard">
+      <caption>
+        Today's Leaderboard
+      </caption>
+      <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Username</th>
+        <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>1. </th>
+          <td>drew</td>
+          <td>50</td>
+        </tr>
+        <tr>
+          <th>2. </th>
+          <td>mike</td>
+          <td>49</td>
+        
+        </tr>
+        <tr>
+          <th>3. </th>
+        </tr>
+        <tr>
+          <th>4. </th>
+        </tr>
+        <tr>
+          <th>5. </th>
+        </tr>
+        <tr>
+          <th>6. </th>
+        </tr>
+        <tr>
+          <th>7. </th>
+        </tr>
+        <tr>
+          <th>8. </th>
+        </tr>
+        <tr>
+          <th>9. </th>
+        </tr>
+        <tr>
+          <th>10. </th>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+
+<div class = "container">
+  <form>
+    <p>What do you think of this site?</p><textarea name="comments" cols="30" rows="10"></textarea>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "nba_play/base.html" %}
+{% block title %}Guess the Player{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h2>Guess the Player</h2>
+    
+    <div class="guess-box">
+      <form id="guess-form" method="get" action="/guess/">
+        <button class="button" type="submit">Start Game!</button>
+      </form>
+
+      <div class="score-board">
+
+        <div class="score">
+          <span>Score</span>
+          <div id="score-value">0</div>
+        </div>
+
+        <div class="time">
+          <span>Time</span>
+          <div id="time-value">{{seconds}}</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="guess-player">
+      
+    </div>
+
+  </div>
+  <script>
+    let form = document.getElementById('guess-form');
+    form.addEventListener('submit', runEvent);
+    let seconds = 10.0;
+    let intervalId;
+
+
+    function runEvent(e){
+      e.preventDefault();
+      console.log(e);
+      intervalId = setInterval(gameTimer, 100);
+    }
+    
+    function gameTimer() {
+      document.getElementById('time-value').textContent = seconds.toFixed(1);
+      seconds = seconds - 0.1;
+      if (seconds < 0){
+        clearInterval(intervalId);
+      }
+    }
+      // timer needs to continue when we swap tabs
+  </script>
+
+
+{% endblock %}
