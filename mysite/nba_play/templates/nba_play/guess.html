@@ -51,20 +51,28 @@
 
   <script>
     let form = document.getElementById('start-form');
-    form.addEventListener('submit', runEvent);
+    form.addEventListener('submit', startGame);
 
     time_lst = document.getElementById('time-value').innerText.split(":")
     let seconds = parseInt(time_lst[0]) * 60 + parseInt(time_lst[1])
     let intervalId;
 
-    function runEvent(e){
+    function startGame(e){
       e.preventDefault();
-      intervalId = setInterval(gameTimer, 100);
+
+      intervalId = setInterval(gameTimer, 100); // timer
+
+      // changing game design
       document.getElementById("start-form").style.display = "none";
       document.querySelector('.user-guess-text').style.display = "flex";
       document.querySelector(".skip-button").style.display = "block";
       document.querySelector(".game-type").style.display = "none";
-      getRandomPlayer();
+      getRandomPlayer()
+      .then((last_name) => {
+        document.querySelector("#user-text").addEventListener('keyup', checkCorrect);
+      });
+
+      document.querySelector('.skip-button').addEventListener('click', getRandomPlayer)
     }
     
     function gameTimer() {
@@ -76,18 +84,32 @@
     }
 
     function getRandomPlayer() {
-      fetch('get_random_players').then((res) => res.json()).then(
-        (players) => {
+      return new Promise((resolve, reject) => {
+        document.querySelector('#user-text').value = "";
+        fetch('get_random_players')
+        .then((res) => res.json())
+        .then((players) => {
           player = players[0]
-          console.log(typeof(player))
-          console.log(player)
           output = `<div class="player">
-         <img class="player-image" 
-        src="https://cdn.nba.com/headshots/nba/latest/260x190/${player.nba_id}.png" 
-        alt=""></div>`
+            <img class="player-image" 
+            src="https://cdn.nba.com/headshots/nba/latest/260x190/${player.nba_id}.png" 
+            alt=""></div>`
           document.querySelector('.players').innerHTML = output;
-        }
-      )
+          last_name = player.last_name;
+          resolve(last_name);
+        });
+      });
+    }
+
+    function checkCorrect(){
+      let guess = document.querySelector('#user-text').value;
+      console.log(guess, last_name)
+      if(guess == last_name){
+        let score = document.querySelector('#score-value');
+        let new_value = parseInt(score.innerText) + 1;
+        score.innerHTML = new_value;
+        getRandomPlayer();
+      }
     }
       // timer needs to continue when we swap tabs
       // need a way to end game
