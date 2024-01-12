@@ -125,15 +125,29 @@ header {
   display:flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 
-.score {
+.guess-options{
   display: flex;
-  flex-direction: column
 }
 
-.score-board {
+.user-guess-text {
+  flex-direction: column;
+  display: none
+}
+
+.game-board {
   display: flex
+}
+
+.skip-button{
+  background-color: rgb(243, 175, 51);
+  display: none;
+}
+
+.skip-button:hover{
+  background-color: rgb(220, 160, 50);
 }
 
 table {
@@ -147,4 +161,18 @@ table, th, td{
 
 table tr:nth-child(even){
   background: #dedede;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+}
+
+.footer-git{
+  display:flex;
+}
+
+footer i {
+  margin-left: 5px;
+  color: #000;
 }

@@ -4,13 +4,30 @@
 {% block content %}
   <div class="container">
     <h2>Guess the Player</h2>
-    
+
+    <div id="game-type">
+      <input type="radio" id="practice" value="practice" name="game-type">
+      <label for="practice">Practice</label>
+      <input type="radio" id="timed" value="timed" name="game-type" checked>
+      <label for="timed">Timed</label>
+    </div>
+
     <div class="guess-box">
-      <form id="guess-form" method="get" action="/guess/">
+      <form id="start-form" method="get" action="/guess/">
+        {% csrf_token %}
         <button class="button" type="submit">Start Game!</button>
       </form>
 
-      <div class="score-board">
+
+      <div class="guess-options">
+        <div class="user-guess-text">
+          <label for="user-text">Enter Player Name</label>
+          <input type="text" id="user-text">
+        </div>
+        <button class="button skip-button">Skip</button>
+      </div>
+
+      <div class="game-board">
 
         <div class="score">
           <span>Score</span>
@@ -19,7 +36,7 @@
 
         <div class="time">
           <span>Time</span>
-          <div id="time-value">{{seconds}}</div>
+          <div id="time-value">1:00</div>
         </div>
 
       </div>
@@ -27,32 +44,53 @@
     </div>
 
     <div class="guess-player">
-      
+
     </div>
 
   </div>
-  <script>
-    let form = document.getElementById('guess-form');
-    form.addEventListener('submit', runEvent);
-    let seconds = 10.0;
-    let intervalId;
 
+  <script>
+    let form = document.getElementById('start-form');
+    form.addEventListener('submit', runEvent);
+
+    time_lst = document.getElementById('time-value').innerText.split(":")
+    let seconds = parseInt(time_lst[0]) * 60 + parseInt(time_lst[1])
+    let intervalId;
 
     function runEvent(e){
       e.preventDefault();
-      console.log(e);
       intervalId = setInterval(gameTimer, 100);
+      document.getElementById("start-form").style.display = "none";
+      document.querySelector('.user-guess-text').style.display = "flex";
+      document.querySelector(".skip-button").style.display = "block";
+      document.getElementById("game-type").style.display = "none";
+      // document.getElementById("start-form").submit();
+      getRandomPlayer();
     }
     
     function gameTimer() {
-      document.getElementById('time-value').textContent = seconds.toFixed(1);
-      seconds = seconds - 0.1;
-      if (seconds < 0){
+      seconds = (seconds - 0.1).toFixed(1);
+      document.getElementById('time-value').textContent = seconds;
+      if (seconds < 0.1){
         clearInterval(intervalId);
       }
     }
-      // timer needs to continue when we swap tabs
-  </script>
 
+    function getRandomPlayer() {
+      fetch('get_random_player').then((res) => res.json()).then(
+        (player) => {
+          console.log(player)
+          output = `<div class="player">
+         <img class="player-image" 
+        src="https://cdn.nba.com/headshots/nba/latest/260x190/${player.nba_id}.png" 
+        alt=""></div>`
+          document.querySelector('.guess-player').innerHTML = output;
+        }
+      )
+    }
+      // timer needs to continue when we swap tabs
+      // need a way to end game
+      // also have practice mode where there's no timer
+  </script>
 
 {% endblock %}
