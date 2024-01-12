@@ -10,9 +10,18 @@ class Player(models.Model):
   first_name = models.CharField(max_length=200)
   is_active = models.BooleanField()
 
+  def serialize(self):
+    """
+    Serializes a player object
+    """
+    return {"nba_id": self.nba_id, 
+            "last_name": self.last_name, 
+            "first_name": self.first_name,
+            "is_active": self.is_active}
+
   class Meta:
     db_table = 'players'
-
+  
 
 class PlayerImage(models.Model):
   """

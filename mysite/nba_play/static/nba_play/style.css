@@ -121,7 +121,7 @@ header {
   display: block;
 }
 
-.guess-box {
+.game-box {
   display:flex;
   justify-content: space-between;
   align-items: center;
@@ -134,16 +134,14 @@ header {
 
 .user-guess-text {
   flex-direction: column;
-  display: none
 }
 
-.game-board {
+.score-board {
   display: flex
 }
 
 .skip-button{
   background-color: rgb(243, 175, 51);
-  display: none;
 }
 
 .skip-button:hover{

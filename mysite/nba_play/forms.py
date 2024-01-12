@@ -4,7 +4,7 @@ class GenerateNbaPlayers(forms.Form):
   num_players = forms.ChoiceField(
     label="Number of Players",
     choices=[(str(i), str(i))for i in range(1, 13)], 
-    widget=forms.Select(attrs={'id': 'nums-players'}))
+    widget=forms.Select(attrs={'id': 'num-players'}))
   player_type = forms.ChoiceField(
     label="NBA Player Type",
     choices=[

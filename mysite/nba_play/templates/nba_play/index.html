@@ -29,11 +29,11 @@
 
   <div class="container">
     <div class="players">
-      {% for player in players %}
+      <!-- {% for player in players %}
       <div class="player">{{ player.first_name }} {{ player.last_name }}
         <img src="https://cdn.nba.com/headshots/nba/latest/260x190/{{ player.nba_id }}.png" alt="" class="player-image">
       </div>
-      {% endfor %}
+      {% endfor %} -->
       <!-- <div class="player">LeBron James <img class="player-image" src="https://cdn.nba.com/headshots/nba/latest/260x190/2544.png" alt=""></div>
       <div class="player">Luka Doncic <img class="player-image" src="https://cdn.nba.com/headshots/nba/latest/260x190/1629029.png" alt=""></div>
       <div class="player">Kobe Bryant <img class="player-image" src="https://cdn.nba.com/headshots/nba/latest/260x190/977.png" alt=""></div> -->
@@ -98,4 +98,33 @@
     <p>What do you think of this site?</p><textarea name="comments" cols="30" rows="10"></textarea>
   </form>
 </div>
+<script>
+  let form = document.querySelector('.selection-box');
+  form.addEventListener('submit', runEvent);
+
+  function runEvent(e) {
+    e.preventDefault();
+    let num_players = parseInt(document.getElementById('num-players').value);
+    let player_type = document.getElementById('player-type').value;
+    fetchRandomPlayers(num_players, player_type);
+  }
+
+  function fetchRandomPlayers(num_players, player_type) {
+    fetch(
+      `get_random_players/?num_players=${num_players}&player_type=${player_type}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        let output = '';
+        data.forEach(function (player) {
+          output += `<div class="player">
+          ${player.first_name} ${player.last_name} <img class="player-image" 
+          src="https://cdn.nba.com/headshots/nba/latest/260x190/${player.nba_id}.png" 
+          alt=""></div>`;
+        });
+        document.querySelector('.players').innerHTML = output;
+      });
+  }
+
+</script>
 {% endblock %}
