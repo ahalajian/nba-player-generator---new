@@ -118,9 +118,11 @@
         let output = '';
         data.forEach(function (player) {
           output += `<div class="player">
-          ${player.first_name} ${player.last_name} <img class="player-image" 
+          <img class="player-image" 
           src="https://cdn.nba.com/headshots/nba/latest/260x190/${player.nba_id}.png" 
-          alt=""></div>`;
+          alt="">
+          <p>${player.first_name} ${player.last_name}<p>
+          </div>`;
         });
         document.querySelector('.players').innerHTML = output;
       });
