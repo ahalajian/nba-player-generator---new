@@ -5,50 +5,54 @@
   <div class="container">
     <h2>Guess the Player</h2>
 
-    <div class="game-type">
-      <input type="radio" id="practice" value="practice" name="game-type">
-      <label for="practice">Practice</label>
-
-      <input type="radio" id="timed" value="timed" name="game-type" checked>
-      <label for="timed">Timed</label>
-    </div>
-
-    <div class="game-box">
-      <form id="start-form">
-        {% csrf_token %}
-        <button class="button" type="submit">Start Game!</button>
-      </form>
-
-      <div class="guess-options" hidden>
-        <div class="user-guess-text">
-          <label for="user-text">Enter Player Name</label>
-          <input type="text" id="user-text">
-        </div>
-        <button class="button skip-button">Skip</button>
+    <div class="game">
+      <div class="game-type">
+        <input type="radio" id="practice" value="practice" name="game-type">
+        <label for="practice">Practice</label>
+  
+        <input type="radio" id="timed" value="timed" name="game-type" checked>
+        <label for="timed">Timed</label>
       </div>
 
-      <button class="button play-again-button" hidden>Play Again!</button>
+      <div class="game-box">
+        <form id="start-form">
+          {% csrf_token %}
+          <button class="button" type="submit">Start Game!</button>
+        </form>
 
-      <div class="score-board">
+        <div class="guess-options" hidden>
+          <div class="user-guess-text">
+            <label id="enter-name-text" for="user-text">Enter Player Name:</label>
+            <input type="text" id="user-text" autocomplete="off">
+          </div>
+          <button class="button skip-button">Skip</button>
+        </div>
+        
 
-        <div class="score">
-          <span>Score</span>
-          <div id="score-value">0</div>
-        </div>
-        <div class="pause" hidden>
-          <button><i class="fa-solid fa-pause"></i></button>
-        </div>
-        <div class="time">
-          <span>Time</span>
-          <div id="time-value">1:00</div>
+        <button class="button play-again-button" hidden>Play Again!</button>
+
+        <div class="score-board">
+
+          <div class="data" id="score">
+            <span>Score</span>
+            <div class="data-value" id="score-value">0</div>
+          </div>
+          <div class="pause" style="visibility:hidden">
+            <button><i class="fa-solid fa-pause"></i></button>
+          </div>
+          <div class="data" id="time">
+            <span>Time</span>
+            <div class="data-value" id="time-value">1:00</div>
+          </div>
+
         </div>
 
       </div>
 
-    </div>
 
-    <div class="players"></div>
-    <button class="button give-up-button" hidden>Give Up!</button>
+      <div class="players"></div>
+      <button class="button give-up-button" hidden>Give Up!</button>
+    </div>
 
   </div>
 
@@ -56,8 +60,6 @@
     let form = document.getElementById('start-form');
     form.addEventListener('submit', startGame);
 
-    // time_lst = document.getElementById('time-value').innerText.split(":");
-    // let seconds = parseInt(time_lst[0]) * 60 + parseInt(time_lst[1]);
     let intervalId;
     let seconds;
 
@@ -69,11 +71,14 @@
       e.preventDefault();
 
       // changing game design
+      document.getElementById("time-value").style.color = "#000";
       document.getElementById("start-form").style.display = "none"; //removes start game button
       document.querySelector('.guess-options').style.display = "flex"; //adds typing and skip button
       document.querySelector(".game-type").style.display = "none"; //practice or timed radio
-      document.querySelector(".pause").style.display = "block"; //adds pause button
+      document.querySelector(".pause").style.visibility = "visible"; //adds pause button
       document.querySelector(".play-again-button").style.display = "none";
+
+      document.getElementById('user-text').focus(); //puts input into focus
 
       let give_up_button = document.querySelector(".give-up-button");
       give_up_button.style.display = "block";
@@ -98,7 +103,11 @@
     */
     function gameTimer() {
       seconds = (seconds - 0.1).toFixed(1);
-      document.getElementById('time-value').textContent = seconds;
+      time_value = document.getElementById('time-value')
+      time_value.textContent = seconds;
+      if (seconds < 5.1){
+        time_value.style.color = 'red';
+      }
       if (seconds < 0.1){
         endGame();
       }
@@ -160,7 +169,7 @@
       play_again_button.style.display = "block";
       play_again_button.addEventListener('click', startGame);
       document.querySelector('.guess-options').style.display = "none";
-      document.querySelector(".pause").style.display = "none";
+      document.querySelector(".pause").style.visibility = "hidden";
       document.querySelector(".give-up-button").style.display = "none";
     }
 
