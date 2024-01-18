@@ -37,8 +37,8 @@
             <span>Score</span>
             <div class="data-value" id="score-value">0</div>
           </div>
-          <div class="pause" style="visibility:hidden">
-            <button><i class="fa-solid fa-pause"></i></button>
+          <div id="pause" style="visibility:hidden">
+            <button class="pause-button"><i class="fa-solid fa-pause"></i></button>
           </div>
           <div class="data" id="time">
             <span>Time</span>
@@ -48,6 +48,10 @@
         </div>
 
       </div>
+
+      <!-- <div>
+        <button class="button resume-button">Resume</button>
+      </div> -->
 
 
       <div class="players"></div>
@@ -69,22 +73,11 @@
     */ 
     function startGame(e){
       e.preventDefault();
-
-      // changing game design
-      document.getElementById("time-value").style.color = "#000";
-      document.getElementById("start-form").style.display = "none"; //removes start game button
-      document.querySelector('.guess-options').style.display = "flex"; //adds typing and skip button
-      document.querySelector(".game-type").style.display = "none"; //practice or timed radio
-      document.querySelector(".pause").style.visibility = "visible"; //adds pause button
-      document.querySelector(".play-again-button").style.display = "none";
-
-      document.getElementById('user-text').focus(); //puts input into focus
-
-      let give_up_button = document.querySelector(".give-up-button");
-      give_up_button.style.display = "block";
-      give_up_button.addEventListener("click", endGame);
+      changeStartPage();
       
+      document.querySelector('.give-up-button').addEventListener("click", endGame);
       document.querySelector('.skip-button').addEventListener('click', playerTransition);
+      // document.querySelector('.pause-button').addEventListener('click', pauseGame);
 
       document.querySelector("#time-value").innerText = "1:00";
       seconds = 60;
@@ -96,6 +89,17 @@
       .then(([last_name, first_name]) => {
         document.querySelector("#user-text").addEventListener('keyup', checkCorrect);
       });
+
+    }
+
+    function changeStartPage(){
+      document.getElementById("time-value").style.color = "#000";
+      document.getElementById("start-form").style.display = "none"; //removes start game button
+      document.querySelector('.guess-options').style.display = "flex"; //adds typing and skip button
+      document.querySelector(".game-type").style.display = "none"; //practice or timed radio
+      document.getElementById("pause").style.visibility = "visible"; //adds pause button
+      document.querySelector(".play-again-button").style.display = "none";
+      document.querySelector(".give-up-button").style.display = "block";
     }
     
     /**
@@ -113,10 +117,24 @@
       }
     }
 
+    // function pauseGame(){
+    //   clearInterval(intervalId);
+    //   // create a resume button that we can click
+    //   // paused text
+    //   // show time remaining and score but make everything else hidden
+    //   // if resume button clicked, then setInterval again
+
+    //   document.querySelector('.resume-button').addEventListener('click', () => {
+    //     intervalId = setInterval(gameTimer, 100);
+    //   })
+    // }
+
     /**
     * Gets random player. Returns a promise
     */
     function getRandomPlayer() {
+      document.getElementById('user-text').value = "";
+      document.getElementById('user-text').focus();
       return new Promise((resolve, reject) => {
         fetch('get_random_players')
         .then((res) => res.json())
@@ -169,13 +187,12 @@
       play_again_button.style.display = "block";
       play_again_button.addEventListener('click', startGame);
       document.querySelector('.guess-options').style.display = "none";
-      document.querySelector(".pause").style.visibility = "hidden";
+      document.getElementById("pause").style.visibility = "hidden";
       document.querySelector(".give-up-button").style.display = "none";
     }
 
     
     function playerTransition() {
-      document.querySelector('#user-text').value = "";
       document.querySelector('.player');
       let txt = document.createTextNode(`${first_name} ${last_name}`);
       document.querySelector('.player').appendChild(txt);
@@ -186,7 +203,6 @@
       getRandomPlayer();
     }
       // timer needs to continue when we swap tabs
-      // need a way to end game
       // also have practice mode where there's no timer
   </script>
 

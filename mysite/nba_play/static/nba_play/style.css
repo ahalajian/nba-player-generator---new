@@ -5,18 +5,27 @@
   box-sizing: border-box;
 }
 
+.container{
+  max-width: 1200px;
+  height: 100%;
+  margin: auto;
+  overflow: visible;
+}
+
 body {
   background-color: #f4f4f4;
   color: #000;
-  font: normal 16px 'Roboto', sans-serif;
+  font: normal 18px 'Roboto', sans-serif;
   line-height: 1.5;
 }
 
-p {
-  margin: 0;
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-a{
+nav a{
+  font-size: 1.5rem;
   text-decoration: none;
   color: #fff;
 }
@@ -28,31 +37,17 @@ header {
   padding: 10px;
 }
 
-h2 {
-  text-align: center;
-}
-
-.container{
-  max-width: 1100px;
-  height: 100%;
-  margin: auto;
-  overflow: visible;
-}
-
 .navbar {
   background-color: #385170;
-  height: 50px;
+  height: 60px;
   margin-bottom: 20px;
 }
 
 .navbar li {
   display: inline;
-  padding-right: 15px;
+  padding-right: 30px;
 }
 
-.navbar a {
-  font-size: 18px;
-}
 
 .navbar a:hover{
   background-color: #6b6b6b;
@@ -70,6 +65,18 @@ h2 {
   margin-left: auto;
 }
 
+.instruction-box{
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.instruction-box #instruction-text {
+  border: 2px solid #7ca3dc;
+  padding: 2px;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
 .button {
   background-color: #23be32;
   padding: 10px 15px;
@@ -81,17 +88,10 @@ h2 {
 
 .button:hover{
   background-color: #4eb458;
-  /* box-shadow: 0px 0px 3px 3px #828282; */
-}
-
-.instruction-box h5{
-  text-align: center;
-  border: 2px solid #7ca3dc;
-  margin-bottom: 5px;
-  padding: 2px;
 }
 
 .selection-box{
+  width: 100%;
   background-color: #7ca3dc;
   padding: 10px 15px;
   border: 2px solid 385170;
@@ -99,6 +99,8 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 10px;
+  font-size: 1.25rem;
 }
 
 .selection-box #num-players:hover, select:hover {
@@ -107,13 +109,14 @@ h2 {
 
 .players {
   display: flex;
-  justify-content: space-around;
   flex-wrap:wrap;
+  width: 100%;
+  gap: 2rem;
+  margin: 10px auto;
 }
 
 .player {
   padding: 10px 15px;
-  margin: 10px;
   text-align: center;
   height: 300px;
   width: 300px;
@@ -152,13 +155,15 @@ h2 {
 }
 
 #user-text {
-  padding: 15px;
+  padding: 15px 10px;
+  border: 1px solid #000;
+  border-radius: 4px;
 }
 
 .score-board {
   display: flex;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1.5rem;
   margin-right: 40px;
   align-items: start;
 }
@@ -188,8 +193,15 @@ h2 {
   margin-bottom: 5px;
 }
 
-table {
-  float:right
+/* #pause {
+  display: flex;
+  align-items: center;
+  height: 100%;
+} */
+
+.pause-button {
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 table, th, td{
@@ -197,13 +209,32 @@ table, th, td{
   text-align: center;
 }
 
+table {
+  width: 50%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
 table tr:nth-child(even){
   background: #dedede;
+}
+
+.suggestions-form{
+  margin: auto;
+}
+
+.suggestions-form textarea {
+  width: 50%
 }
 
 footer {
   display: flex;
   justify-content: center;
+  margin-top: 20px;
+  background: #385170;
+  color: #fff;
+  height: 50px;
 }
 
 .footer-git{
@@ -212,5 +243,5 @@ footer {
 
 footer i {
   margin-left: 5px;
-  color: #000;
+  color: #fff;
 }

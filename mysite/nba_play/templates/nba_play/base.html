@@ -25,20 +25,78 @@
       <ul class="nav-list">
         <li><a href="/">Home</a></li>
         <li><a href="/guess/">Guess the Player</a></li>
-        <li><a href="#">Draft</a></li>
         <li><a href="#">Leaderboard</a></li>
-        <li id ="login-button"><a href="login.html"><i class="fa-solid fa-user"></i> Login</a></li>
+        <li id ="login-button"><a href="/login/"><i class="fa-solid fa-user"></i> Login</a></li>
       </ul>
     </div>
   </nav>
 
-  {% block content %}
+  <main>
+    {% block content %}
 
-  {% endblock %}
+    {% endblock %}
+
+    <aside class="container" id="leaderboard">
+      <table>
+        <caption>
+          Today's Leaderboard
+        </caption>
+        <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Username</th>
+          <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>1. </th>
+            <td>drew</td>
+            <td>50</td>
+          </tr>
+          <tr>
+            <th>2. </th>
+            <td>mike</td>
+            <td>49</td>
+          
+          </tr>
+          <tr>
+            <th>3. </th>
+          </tr>
+          <tr>
+            <th>4. </th>
+          </tr>
+          <tr>
+            <th>5. </th>
+          </tr>
+          <tr>
+            <th>6. </th>
+          </tr>
+          <tr>
+            <th>7. </th>
+          </tr>
+          <tr>
+            <th>8. </th>
+          </tr>
+          <tr>
+            <th>9. </th>
+          </tr>
+          <tr>
+            <th>10. </th>
+          </tr>
+        </tbody>
+      </table>
+    </aside>
+
+    <form class="container suggestions-form">
+      <p>Any comments, errors, suggestions? Please write them below! </p><textarea name="comments" cols="30" rows="10"></textarea>
+    </form>
+
+  </main>
 
   <footer>
     <div class="footer-git">
-      <p>Created by Andrew</p>
+      Created by Andrew
       <a href="https://github.com/ahalajian" target="_blank">
         <i class="fa-brands fa-github"></i>
       </a>
