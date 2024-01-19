@@ -22,12 +22,28 @@
  
   <nav class="navbar">
     <div class="container">
-      <ul class="nav-list">
-        <li><a href="/">Home</a></li>
-        <li><a href="/guess/">Guess the Player</a></li>
-        <li><a href="#">Leaderboard</a></li>
-        <li id ="login-button"><a href="/login/"><i class="fa-solid fa-user"></i> Login</a></li>
-      </ul>
+      <div class="nav-list">
+        <a class="nav-item" href="/">Home</a>
+        <a class="nav-item" href="/guess/">Guess the Player</a>
+        <a class="nav-item" href="#">Leaderboard</a>
+
+        {% if user.is_authenticated %}
+        <div class="dropdown nav-item">
+          <button class="drop-button">{{user.username}}
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a class="dropdown-item" href="#">Scores</a>
+            <form method = "post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button class="dropdown-item" type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+        {% else %}
+        <div><a class="nav-item" href="/login/"><i class="fa-solid fa-user"></i> Log In</a></div>
+        {% endif %}
+      </div>
     </div>
   </nav>
 

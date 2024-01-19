@@ -1,0 +1,14 @@
+{% extends "nba_play/base.html" %}
+
+{% block title %}
+NBA Guess - Login
+{% endblock %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  {{form}}
+  <p> Don't have an account? Create one <a href="/register">here</a></p>
+  <button type="submit" class ="button">Login</button>
+</form>
+{% endblock %}

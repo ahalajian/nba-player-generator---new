@@ -58,6 +58,13 @@
       <button class="button give-up-button" hidden>Give Up!</button>
     </div>
 
+    <div>
+      {% if not user.is_authenticated %}
+        <p>Want to save your results? Create an account <a href="/register">here</a></p>
+      {% endif %}
+    </div>
+
+
   </div>
 
   <script>
@@ -136,7 +143,7 @@
       document.getElementById('user-text').value = "";
       document.getElementById('user-text').focus();
       return new Promise((resolve, reject) => {
-        fetch('get_random_players')
+        fetch('/get_random_players')
         .then((res) => res.json())
         .then((players) => {
           let player = players[0]

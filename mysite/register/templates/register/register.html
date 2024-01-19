@@ -1,0 +1,12 @@
+{% extends "nba_play/base.html" %}
+
+{% block title %} Create an Account {% endblock %}
+
+{% block content %}
+  <form method="POST" class="form-group" action="">
+    {% csrf_token %}
+    {{form}}
+    <p>Have an account? Login <a href="/login">Here</a></p>
+    <button type="submit" class="btn btn-success">Register</button>
+  </form>
+{% endblock %}
