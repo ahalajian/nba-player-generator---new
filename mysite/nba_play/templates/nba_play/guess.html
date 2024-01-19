@@ -13,7 +13,7 @@
         <input type="radio" id="timed" value="timed" name="game-type" checked>
         <label for="timed">Timed</label>
       </div>
-
+      
       <div class="game-box">
         <button class="button start-button">Start Game!</button>
         <div class="guess-options active-state">
@@ -179,17 +179,6 @@
 
     }
 
-    function endGame() {
-      clearInterval(intervalId);
-      document.querySelector(".active-state").style.visibility = "hidden";
-      document.querySelector(".inactive-state").style.visibility = "visible";
-      document.querySelector(".start-button").style.display = "block";
-      document.querySelector(".start-button").innerText = "Play Again!"
-      // document.getElementById("pause").style.visibility = "hidden";
-      document.querySelector(".give-up-button").style.display = "none";
-    }
-
-    
     function playerTransition() {
       document.querySelector('.player');
       let txt = document.createTextNode(`${first_name} ${last_name}`);
@@ -200,6 +189,37 @@
       // pause timer as well
       getRandomPlayer();
     }
+
+    function endGame() {
+      clearInterval(intervalId);
+      document.querySelector(".active-state").style.visibility = "hidden";
+      document.querySelector(".inactive-state").style.visibility = "visible";
+      document.querySelector(".start-button").style.display = "block";
+      document.querySelector(".start-button").innerText = "Play Again!"
+      // document.getElementById("pause").style.visibility = "hidden";
+      document.querySelector(".give-up-button").style.display = "none";
+
+    }
+
+    function saveResult(){
+      let form_data = new FormData()
+      let score = document.getElementById("score-value").textContent;
+      form_data.append("score", score);
+      let csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+      fetch('/save_result/', {
+        method: "POST",
+        body: form_data,
+        headers: {
+          "X-CSRFToken": csrf_token,
+        }
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+        })
+    }
+
       // timer needs to continue when we swap tabs
       // also have practice mode where there's no timer
   </script>

@@ -191,6 +191,7 @@ nav .nav-item {
   margin-bottom: 10px;
   margin-top: 15px;
   gap: 2rem;
+  padding: 10px 5px;;
   background-color: #7ca3dc;
 }
 
@@ -208,6 +209,10 @@ nav .nav-item {
   padding: 15px 10px;
   border: 1px solid #000;
   border-radius: 4px;
+}
+
+.start-button {
+  margin: 5px;
 }
 
 .score-board {

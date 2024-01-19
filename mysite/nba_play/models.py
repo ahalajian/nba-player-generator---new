@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Player(models.Model):
@@ -32,3 +33,14 @@ class PlayerImage(models.Model):
 
   class Meta:
     db_table = 'player_images'
+
+class Result(models.Model):
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  score = models.IntegerField()
+  date = models.DateField(auto_now_add=True)
+  
+  class Meta:
+    db_table = 'results'
+
+  def __str__(self):
+    return self.user + "\n" + self.score

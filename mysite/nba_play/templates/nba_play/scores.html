@@ -1,0 +1,25 @@
+{% extends "nba_play/base.html" %}
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<p><a href="?sort_by=date">Sort by Date</a> | <a href="?sort_by=score">Sort by Score</a></p>
+  <table>
+    <caption>
+      Your Scores
+    </caption>
+    <thead>
+      <tr>
+          <th>Date</th>
+          <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for score in scores %}
+      <tr>
+          <td>{{ score.date }}</td>
+          <td>{{ score.score }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
