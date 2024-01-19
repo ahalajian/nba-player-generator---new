@@ -120,11 +120,12 @@ nav .nav-item {
 
 .button {
   background-color: #23be32;
-  padding: 10px 15px;
+  padding: 10px 20px;
   border-radius: 20px;
   /* margin-top: 10px; */
-  height: 35px;
+  /* height: 100px; */
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .button:hover{
@@ -152,7 +153,7 @@ nav .nav-item {
   flex-wrap:wrap;
   width: 100%;
   gap: 2rem;
-  margin: 10px auto;
+  justify-content: center;
 }
 
 .player {
@@ -171,6 +172,14 @@ nav .nav-item {
   display: block;
 }
 
+.inactive-state {
+  visibility: visible;
+}
+
+.active-state {
+  visibility: hidden;
+}
+
 .game {
   margin: 40px 0px;
 }
@@ -182,6 +191,7 @@ nav .nav-item {
   margin-bottom: 10px;
   margin-top: 15px;
   gap: 2rem;
+  background-color: #7ca3dc;
 }
 
 .guess-options{
