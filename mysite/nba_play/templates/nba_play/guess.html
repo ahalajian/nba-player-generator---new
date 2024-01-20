@@ -6,30 +6,23 @@
     <h2>Guess the Player</h2>
 
     <div class="game">
-      <div class="game-type">
+      <div class="game-type inactive-state">
         <input type="radio" id="practice" value="practice" name="game-type">
         <label for="practice">Practice</label>
   
         <input type="radio" id="timed" value="timed" name="game-type" checked>
         <label for="timed">Timed</label>
       </div>
-
+      
       <div class="game-box">
-        <form id="start-form">
-          {% csrf_token %}
-          <button class="button" type="submit">Start Game!</button>
-        </form>
-
-        <div class="guess-options" hidden>
+        <button class="button start-button">Start Game!</button>
+        <div class="guess-options active-state">
           <div class="user-guess-text">
             <label id="enter-name-text" for="user-text">Enter Player Name:</label>
             <input type="text" id="user-text" autocomplete="off">
           </div>
           <button class="button skip-button">Skip</button>
         </div>
-        
-
-        <button class="button play-again-button" hidden>Play Again!</button>
 
         <div class="score-board">
 
@@ -37,9 +30,9 @@
             <span>Score</span>
             <div class="data-value" id="score-value">0</div>
           </div>
-          <div id="pause" style="visibility:hidden">
+          <!-- <div id="pause" class="active-state">
             <button class="pause-button"><i class="fa-solid fa-pause"></i></button>
-          </div>
+          </div> -->
           <div class="data" id="time">
             <span>Time</span>
             <div class="data-value" id="time-value">1:00</div>
@@ -53,26 +46,32 @@
         <button class="button resume-button">Resume</button>
       </div> -->
 
-
       <div class="players"></div>
       <button class="button give-up-button" hidden>Give Up!</button>
     </div>
 
+    <div>
+      {% if not user.is_authenticated %}
+        <p>Want to save your results?</p>
+        <p>Create an account <a href="/register">here</a></p>
+        <p>Log in <a href = "/login">here</a></p>
+      {% endif %}
+    </div>
+
+
   </div>
 
   <script>
-    let form = document.getElementById('start-form');
-    form.addEventListener('submit', startGame);
-
+    document.querySelector('.start-button').addEventListener('click', startGame);
     let intervalId;
     let seconds;
-
 
     /**
     * Starts the game 
     */ 
     function startGame(e){
       e.preventDefault();
+
       changeStartPage();
       
       document.querySelector('.give-up-button').addEventListener("click", endGame);
@@ -80,6 +79,7 @@
       // document.querySelector('.pause-button').addEventListener('click', pauseGame);
 
       document.querySelector("#time-value").innerText = "1:00";
+      document.getElementById("time-value").style.color = "#000";
       seconds = 60;
       document.querySelector("#score-value").innerText = 0;
 
@@ -93,12 +93,10 @@
     }
 
     function changeStartPage(){
-      document.getElementById("time-value").style.color = "#000";
-      document.getElementById("start-form").style.display = "none"; //removes start game button
-      document.querySelector('.guess-options').style.display = "flex"; //adds typing and skip button
-      document.querySelector(".game-type").style.display = "none"; //practice or timed radio
-      document.getElementById("pause").style.visibility = "visible"; //adds pause button
-      document.querySelector(".play-again-button").style.display = "none";
+      document.querySelector(".active-state").style.visibility = "visible";
+      document.querySelector(".inactive-state").style.visibility = "hidden";
+      document.querySelector(".start-button").style.display = "none"; //removes start game button
+      // document.getElementById("pause").style.visibility = "visible"; //adds pause button
       document.querySelector(".give-up-button").style.display = "block";
     }
     
@@ -110,7 +108,7 @@
       time_value = document.getElementById('time-value')
       time_value.textContent = seconds;
       if (seconds < 5.1){
-        time_value.style.color = 'red';
+        time_value.style.color = '#b00';
       }
       if (seconds < 0.1){
         endGame();
@@ -136,7 +134,7 @@
       document.getElementById('user-text').value = "";
       document.getElementById('user-text').focus();
       return new Promise((resolve, reject) => {
-        fetch('get_random_players')
+        fetch('/get_random_players')
         .then((res) => res.json())
         .then((players) => {
           let player = players[0]
@@ -181,17 +179,6 @@
 
     }
 
-    function endGame() {
-      clearInterval(intervalId);
-      let play_again_button = document.querySelector(".play-again-button");
-      play_again_button.style.display = "block";
-      play_again_button.addEventListener('click', startGame);
-      document.querySelector('.guess-options').style.display = "none";
-      document.getElementById("pause").style.visibility = "hidden";
-      document.querySelector(".give-up-button").style.display = "none";
-    }
-
-    
     function playerTransition() {
       document.querySelector('.player');
       let txt = document.createTextNode(`${first_name} ${last_name}`);
@@ -202,6 +189,37 @@
       // pause timer as well
       getRandomPlayer();
     }
+
+    function endGame() {
+      clearInterval(intervalId);
+      document.querySelector(".active-state").style.visibility = "hidden";
+      document.querySelector(".inactive-state").style.visibility = "visible";
+      document.querySelector(".start-button").style.display = "block";
+      document.querySelector(".start-button").innerText = "Play Again!"
+      // document.getElementById("pause").style.visibility = "hidden";
+      document.querySelector(".give-up-button").style.display = "none";
+      saveResult();
+    }
+
+    function saveResult(){
+      let form_data = new FormData()
+      let score = document.getElementById("score-value").textContent;
+      form_data.append("score", score);
+      let csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+      fetch('/save_result/', {
+        method: "POST",
+        body: form_data,
+        headers: {
+          "X-CSRFToken": csrf_token,
+        }
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+        })
+    }
+
       // timer needs to continue when we swap tabs
       // also have practice mode where there's no timer
   </script>

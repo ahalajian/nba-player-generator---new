@@ -1,4 +1,5 @@
 from django import forms
+from .models import Result
 
 class GenerateNbaPlayers(forms.Form):
   num_players = forms.ChoiceField(
@@ -13,3 +14,8 @@ class GenerateNbaPlayers(forms.Form):
             ('all', 'All NBA Players'),
         ],
     widget=forms.Select(attrs={'id': 'player-type'}))
+  
+class ResultForm(forms.ModelForm):
+  class Meta:
+    model = Result
+    fields = ["score"]

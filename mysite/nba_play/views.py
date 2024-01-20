@@ -3,8 +3,8 @@ from django.http import HttpResponse
 
 from django.core import serializers
 
-from .models import Player
-from .forms import GenerateNbaPlayers
+from .models import Player, Result
+from .forms import GenerateNbaPlayers, ResultForm
 
 import json
 
@@ -30,6 +30,33 @@ def get_random_players(response):
   return HttpResponse(
       json.dumps([player.serialize() for player in random_players]), 
       content_type="application/json")
+
+def save_result(response):
+  if response.method == "POST" and response.user.is_authenticated:
+    form = ResultForm(response.POST)
+    if form.is_valid():
+      result = form.save(commit=False)
+      result.user = response.user
+      result.save()
+      return HttpResponse(json.dumps({"success": True}))
+    else:
+      return HttpResponse(json.dumps({'success': False}))
+    
+def scores(response):
+  user_id = response.user.id
+  scores = Result.objects.filter(user_id = user_id)
+
+  sort_by = response.GET.get('sort_by')
+  if sort_by == 'date':
+    scores = scores.order_by('date')
+  elif sort_by == 'score':
+    scores = scores.order_by('-score')  
+
+  return render(response, "nba_play/scores.html", {"scores": scores})
+
+def leaderboard(response):
+  scores = Result.objects.order_by('-score')[:10]
+  return render(response, "nba_play/leaderboard.html", {"scores": scores})
 
 # Create your views here.
 def index(response):

@@ -27,11 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 
-ALLOWED_HOSTS = [RENDER_EXTERNAL_HOSTNAME]
+
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -145,5 +145,5 @@ if not DEBUG:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/guess/'
-LOGOUT_REDIRECT_URL = '/guess/'
+LOGIN_REDIRECT_URL = '/guess'
+LOGOUT_REDIRECT_URL = '/login'
