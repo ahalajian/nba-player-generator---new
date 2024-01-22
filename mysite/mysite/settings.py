@@ -27,11 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 
-ALLOWED_HOSTS = [RENDER_EXTERNAL_HOSTNAME]
+
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -86,11 +86,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('name'),
-        "USER": os.environ.get('user'),
-        "PASSWORD": os.environ.get('password'),
-        "HOST": os.environ.get('host'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('POSTRGES_NAME'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': 5433
     }
 }
 
@@ -145,5 +146,5 @@ if not DEBUG:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/guess/'
-LOGOUT_REDIRECT_URL = '/guess/'
+LOGIN_REDIRECT_URL = '/guess'
+LOGOUT_REDIRECT_URL = '/login'

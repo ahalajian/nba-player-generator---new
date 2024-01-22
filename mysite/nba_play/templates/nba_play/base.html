@@ -9,10 +9,8 @@
 
   <script src="https://kit.fontawesome.com/5007da0f3d.js" crossorigin="anonymous"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
 </head>
+
 <body>
   <header>
     <div class="container">
@@ -22,12 +20,28 @@
  
   <nav class="navbar">
     <div class="container">
-      <ul class="nav-list">
-        <li><a href="/">Home</a></li>
-        <li><a href="/guess/">Guess the Player</a></li>
-        <li><a href="#">Leaderboard</a></li>
-        <li id ="login-button"><a href="/login/"><i class="fa-solid fa-user"></i> Login</a></li>
-      </ul>
+      <div class="nav-list">
+        <a class="nav-item" href="/">Home</a>
+        <a class="nav-item" href="/guess/">Guess the Player</a>
+        <a class="nav-item" href="/leaderboard">Leaderboard</a>
+
+        {% if user.is_authenticated %}
+        <div class="dropdown nav-item">
+          <button class="drop-button">{{user.username}}
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a class="dropdown-item" href="/scores">Scores</a>
+            <form method = "post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button class="dropdown-item" type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+        {% else %}
+        <div><a class="nav-item" href="/login/"><i class="fa-solid fa-user"></i> Log In</a></div>
+        {% endif %}
+      </div>
     </div>
   </nav>
 
@@ -35,58 +49,6 @@
     {% block content %}
 
     {% endblock %}
-
-    <aside class="container" id="leaderboard">
-      <table>
-        <caption>
-          Today's Leaderboard
-        </caption>
-        <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Username</th>
-          <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>1. </th>
-            <td>drew</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <th>2. </th>
-            <td>mike</td>
-            <td>49</td>
-          
-          </tr>
-          <tr>
-            <th>3. </th>
-          </tr>
-          <tr>
-            <th>4. </th>
-          </tr>
-          <tr>
-            <th>5. </th>
-          </tr>
-          <tr>
-            <th>6. </th>
-          </tr>
-          <tr>
-            <th>7. </th>
-          </tr>
-          <tr>
-            <th>8. </th>
-          </tr>
-          <tr>
-            <th>9. </th>
-          </tr>
-          <tr>
-            <th>10. </th>
-          </tr>
-        </tbody>
-      </table>
-    </aside>
 
     <form class="container suggestions-form">
       <p>Any comments, errors, suggestions? Please write them below! </p><textarea name="comments" cols="30" rows="10"></textarea>

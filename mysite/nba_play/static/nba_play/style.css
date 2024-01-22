@@ -15,19 +15,13 @@
 body {
   background-color: #f4f4f4;
   color: #000;
-  font: normal 18px 'Roboto', sans-serif;
+  font: normal 16px 'Roboto', sans-serif;
   line-height: 1.5;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
-}
-
-nav a{
-  font-size: 1.5rem;
-  text-decoration: none;
-  color: #fff;
 }
 
 header {
@@ -37,21 +31,26 @@ header {
   padding: 10px;
 }
 
+nav .nav-item {
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: #fff;
+}
+
 .navbar {
   background-color: #385170;
-  height: 60px;
   margin-bottom: 20px;
 }
 
-.navbar li {
+.nav-list .nav-item {
   display: inline;
-  padding-right: 30px;
+  padding: 10px 15px;
+  cursor: pointer;
 }
 
-
-.navbar a:hover{
+.navbar .nav-item:hover{
   background-color: #6b6b6b;
-  border-radius: 5px;
+  border-radius: 1px;
 }
 
 .nav-list {
@@ -61,9 +60,52 @@ header {
 }
   
 
-.nav-list li:last-child{
+.nav-list :last-child{
   margin-left: auto;
 }
+
+.dropdown .drop-button {
+  color: inherit;
+  background-color: inherit;
+  font: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+  cursor: inherit;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #6b6b6b;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  right: 0;
+}
+
+.dropdown{
+  position: relative;
+}
+
+.dropdown-content .dropdown-item {
+  float: none;
+  color: inherit;
+  font: inherit;
+  background-color: inherit;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-content .dropdown-item:hover {
+  background-color: #142d4c;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 
 .instruction-box{
   text-align: center;
@@ -74,16 +116,16 @@ header {
   border: 2px solid #7ca3dc;
   padding: 2px;
   font-weight: 600;
-  font-size: 1.25rem;
 }
 
 .button {
   background-color: #23be32;
-  padding: 10px 15px;
+  padding: 10px 20px;
   border-radius: 20px;
   /* margin-top: 10px; */
-  height: 35px;
+  /* height: 100px; */
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .button:hover{
@@ -100,7 +142,6 @@ header {
   flex-direction: column;
   align-items: center;
   margin-bottom: 10px;
-  font-size: 1.25rem;
 }
 
 .selection-box #num-players:hover, select:hover {
@@ -112,7 +153,7 @@ header {
   flex-wrap:wrap;
   width: 100%;
   gap: 2rem;
-  margin: 10px auto;
+  justify-content: center;
 }
 
 .player {
@@ -131,6 +172,14 @@ header {
   display: block;
 }
 
+.inactive-state {
+  visibility: visible;
+}
+
+.active-state {
+  visibility: hidden;
+}
+
 .game {
   margin: 40px 0px;
 }
@@ -142,6 +191,8 @@ header {
   margin-bottom: 10px;
   margin-top: 15px;
   gap: 2rem;
+  padding: 10px 5px;;
+  background-color: #7ca3dc;
 }
 
 .guess-options{
@@ -158,6 +209,10 @@ header {
   padding: 15px 10px;
   border: 1px solid #000;
   border-radius: 4px;
+}
+
+.start-button {
+  margin: 5px;
 }
 
 .score-board {
