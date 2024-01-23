@@ -1,0 +1,302 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+}
+
+.container{
+  max-width: 1200px;
+  height: 100%;
+  margin: auto;
+  overflow: visible;
+}
+
+body {
+  background-color: #f4f4f4;
+  color: #000;
+  font: normal 16px 'Roboto', sans-serif;
+  line-height: 1.5;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header {
+  background-color: #142d4c;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+
+nav .nav-item {
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: #fff;
+}
+
+.navbar {
+  background-color: #385170;
+  margin-bottom: 20px;
+}
+
+.nav-list .nav-item {
+  display: inline;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.navbar .nav-item:hover{
+  background-color: #6b6b6b;
+  border-radius: 1px;
+}
+
+.nav-list {
+  display:flex;
+  height: 100%;
+  align-items: center;
+}
+  
+
+.nav-list :last-child{
+  margin-left: auto;
+}
+
+.dropdown .drop-button {
+  color: inherit;
+  background-color: inherit;
+  font: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+  cursor: inherit;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #6b6b6b;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  right: 0;
+}
+
+.dropdown{
+  position: relative;
+}
+
+.dropdown-content .dropdown-item {
+  float: none;
+  color: inherit;
+  font: inherit;
+  background-color: inherit;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-content .dropdown-item:hover {
+  background-color: #142d4c;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+.instruction-box{
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.instruction-box #instruction-text {
+  border: 2px solid #7ca3dc;
+  padding: 2px;
+  font-weight: 600;
+}
+
+.button {
+  background-color: #23be32;
+  padding: 10px 20px;
+  border-radius: 20px;
+  /* margin-top: 10px; */
+  /* height: 100px; */
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.button:hover{
+  background-color: #4eb458;
+}
+
+.selection-box{
+  width: 100%;
+  background-color: #7ca3dc;
+  padding: 10px 15px;
+  border: 2px solid 385170;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.selection-box #num-players:hover, select:hover {
+  box-shadow: 0px 0px 3px 3px #828282
+}
+
+.players {
+  display: flex;
+  flex-wrap:wrap;
+  width: 100%;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.player {
+  padding: 10px 15px;
+  text-align: center;
+  height: 300px;
+  width: 300px;
+  border: 2px solid #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.player-image {
+  display: block;
+}
+
+.inactive-state {
+  visibility: visible;
+}
+
+.active-state {
+  visibility: hidden;
+}
+
+.game {
+  margin: 40px 0px;
+}
+
+.game-box {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  gap: 2rem;
+  padding: 10px 5px;;
+  background-color: #7ca3dc;
+}
+
+.guess-options{
+  width: 100%;
+  flex-direction: column;
+}
+
+.user-guess-text {
+  display: flex;
+  flex-direction: column;
+}
+
+#user-text {
+  padding: 15px 10px;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.start-button {
+  margin: 5px;
+}
+
+.score-board {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-right: 40px;
+  align-items: start;
+}
+
+.data {
+  text-align: center;
+  font-size: .75rem;
+}
+
+.data-value {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.skip-button{
+  background-color: rgb(243, 175, 51);
+  width: 20%;
+}
+
+.skip-button:hover{
+  background-color: rgb(220, 160, 50);
+}
+
+#enter-name-text {
+  padding-left: 2px;
+  margin-bottom: 5px;
+}
+
+/* #pause {
+  display: flex;
+  align-items: center;
+  height: 100%;
+} */
+
+.pause-button {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+table, th, td{
+  /* border: 1px solid #000; */
+  text-align: center;
+}
+
+table {
+  width: 50%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+table tr:nth-child(even){
+  background: #dedede;
+}
+
+.suggestions-form{
+  margin: auto;
+}
+
+.suggestions-form textarea {
+  width: 50%
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  background: #385170;
+  color: #fff;
+  height: 50px;
+}
+
+.footer-git{
+  display:flex;
+}
+
+footer i {
+  margin-left: 5px;
+  color: #fff;
+}
