@@ -5,5 +5,4 @@ nba_api==1.4.1
 requests==2.31.0
 gunicorn==21.2.0
 django-environ==0.11.2
-google-cloud-secret-manager==2.16.1
-django-storages[google]==1.13.2
+dj-database-url==2.1.0
