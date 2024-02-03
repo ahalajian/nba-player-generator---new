@@ -61,13 +61,9 @@ else:
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Change this to "False" when you are ready for production
-DEBUG = False
+DEBUG = True
 
-# SECURITY WARNING: App Engine's security features ensure that it is safe to
-# have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
-# app not on App Engine, make sure to set an appropriate host here.
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -167,16 +163,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-# [START staticurl]
-# [START gaeflex_py_django_static_config]
-# Define static storage via django-storages[google]
-GS_BUCKET_NAME = env("GS_BUCKET_NAME")
-STATIC_URL = "/static/"
-DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
-STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
-GS_DEFAULT_ACL = "publicRead"
-# [END gaeflex_py_django_static_config]
-# [END staticurl]
+
+STATIC_URL = 'static/'
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
